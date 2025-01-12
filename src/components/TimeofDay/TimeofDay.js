@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+// import React, {Component} from 'react';
+
+// ?? Function based code exampled
+
 const TimeofDay = () => {
   const [time, setTime] = useState(() => new Date());
   const [currentTime, setCurrentTime] = useState('Good day');
-  // console.log(time + 'here');
+
   useEffect(() => {
     const intervalid = setInterval(() => {
       setTime(new Date());
@@ -31,15 +35,107 @@ const TimeofDay = () => {
       </View>
       <View style={styles.datetext}>
         <Text style={{fontSize: 31, fontWeight: 900}}>
-          {time?.toDateString()}
+          {time.toDateString()}
         </Text>
       </View>
       <View style={styles.timeView}>
-        <Text style={styles.timetext}>{time?.toLocaleTimeString()}</Text>
+        <Text style={styles.timetext}>{time.toLocaleTimeString()}</Text>
       </View>
     </View>
   );
 };
+
+// // ?? Class based component exampled
+// class TimeofDay extends Component {
+//   //^^ The constructor defines the inital state now
+
+//   constructor(props) {
+//     //note: The super is imminent here
+//     super(props);
+
+//     // -> (this.state)  === variable {const [state, setState] = useState({})}
+//     this.state = {
+//       // -> The object in here is the default state
+//       time: new Date(),
+//       currentTime: 'Good Day',
+//     };
+//   }
+//   /* (function based)
+//             -   const [time, setTime] = useState(() => new Date());
+//             -   const [currentTime, setCurrentTime] = useState('Good day');
+//             */
+
+//   //^^ It is similar to the useEffect with an empty array and will run only once
+
+//   componentDidMount() {
+//     //* In class based component we assign everything to a 'this' object unlike {const = timerId} in function here
+//     this.timerId = setInterval(() => {
+//       // -> (this.setState) === "setState" callback function {const [state, setState] = useState({})}
+//       this.setState({time: new Date()});
+//     }, 1000);
+//     console.log('Did mounted now');
+//   }
+//   /*
+//             -      useEffect(() => {
+//             -        const intervalid = setInterval(() => {
+//             -          setTime(new Date());
+//             -        }, 1000);
+//             #        The return function here is similar to componentwillunmount
+//             -        return () => clearInterval(intervalid);
+//             -      }, []);
+//             */
+
+//   //^^ The function is similar to other useEffect that runs other than the inital render in an component here
+
+//   componentDidUpdate(prevProps, prevState) {
+//     const local = this.state.time?.getHours();
+
+//     if (prevState.time?.getHours() !== local) {
+//       if (local >= 6 && local < 12)
+//         this.setState({currentTime: 'Good Morning'});
+//       else if (local >= 12 && local <= 16)
+//         this.setState({currentTime: 'Good Afternoon'});
+//       else if (local > 17 && local <= 19)
+//         this.setState({currentTime: 'Good Evening'});
+//       else this.setState({currentTime: 'Good Night'});
+//     }
+//   }
+
+//   //^^ useEffect clearInterval equivalent here
+
+//   componentWillUnmount() {
+//     console.log('unmounted');
+//     return () => clearInterval(this.timerId);
+//   }
+//   /*
+//             - It is similar to return inside a useEffect here
+//             */
+
+//   //^^ We can just make a direct return instead we make it in {render()} here
+
+//   render() {
+//     return (
+//       <View>
+//         <View style={styles.datetext}>
+//           <Text style={{fontStyle: 'italic', fontSize: 31}}>
+//             {this.state.currentTime}
+//           </Text>
+//         </View>
+//         <View style={styles.datetext}>
+//           <Text style={{fontSize: 31, fontWeight: 900}}>
+//             {this.state.time.toDateString()}
+//           </Text>
+//         </View>
+//         <View style={styles.timeView}>
+//           <Text style={styles.timetext}>
+//             {this.state.time.toLocaleTimeString()}
+//           </Text>
+//         </View>
+//       </View>
+//     );
+//   }
+// }
+
 const styles = StyleSheet.create({
   datetext: {
     margin: 'auto',
