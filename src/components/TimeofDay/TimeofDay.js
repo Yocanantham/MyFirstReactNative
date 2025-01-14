@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 // import React, {Component} from 'react';
 
 // ?? Function based code exampled
@@ -29,12 +29,18 @@ const TimeofDay = () => {
   }, [time]);
 
   return (
-    <View>
+    <View
+      style={{
+        margin: 15,
+        borderRadius: 31,
+        backgroundColor: 'rgb(8, 183, 183)',
+        padding: 31,
+      }}>
       <View style={styles.datetext}>
-        <Text style={{fontStyle: 'italic', fontSize: 31}}>{currentTime}</Text>
+        <Text style={{ fontStyle: 'italic', fontSize: 31 }}>{currentTime}</Text>
       </View>
       <View style={styles.datetext}>
-        <Text style={{fontSize: 31, fontWeight: 900}}>
+        <Text style={{ fontSize: 31, fontWeight: 900 }}>
           {time.toDateString()}
         </Text>
       </View>

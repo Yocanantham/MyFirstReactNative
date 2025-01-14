@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Image, View, ActivityIndicator, Text } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, Image, View, ActivityIndicator, Text} from 'react-native';
 
 const ImageComponent = () => {
-
   // const [image, setImage] = useState(require('../../assests/images/cake.png'));
 
   const [image, setImage] = useState('');
@@ -10,57 +9,48 @@ const ImageComponent = () => {
 
   //-> Making a artificial delay for understanding the {onLoad} in an image now
   useEffect(() => {
-
     const timerId = setTimeout(() => {
       setImage(require('../../assests/images/cake.png'));
     }, 3000);
 
     return () => clearTimeout(timerId);
-
   }, []);
 
   return (
-    <SafeAreaView
-      style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <View>
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      {/* //-> The activity indicator is made to an example of { onLoad } now */}
+      {isLoading && (
+        <ActivityIndicator
+          style={{width: 100, height: 100}}
+          size="large"
+          color="#000000"
+        />
+      )}
 
-        {/* //-> The activity indicator is made to an example of { onLoad } now */}
-        {isLoading && <ActivityIndicator style={{ width: 100, height: 100 }} size="large" color="#000000" />}
-
-        {/* //-> The image is rendered conditionally that the {activityindicator} is working like we expected for testing now */}
-        {image && (
-          <Image
-            /* 
+      {/* //-> The image is rendered conditionally that the {activityindicator} is working like we expected for testing now */}
+      {image && (
+        <Image
+          /* 
                  * Using local paths in an image now
                  - source={require("../../assests/images/cake.png")}
                 
                  * Using network paths in image now
                  - source={require("../../assests/images/cake.png")}
             */
-            source={image}
-            resizeMethod="contain"
-
-            // For handling the image not found error and display a placehoolder instead now
-            onError={() => {
-              setImage(require('../../assests/images/fallbackimage.png'));
-            }}
-
-            // For handling the loading now
-            onLoad={() => {
-              setLoading(false);
-            }}
-
-            //note: either can be used
-            //-> either the style here
-            style={{ width: 100, height: 100, borderRadius: 15 }}
-            //-> or the direct styles in here now
-            borderRadius={15}
-            width={100}
-            height={100}
-          />
-        )}
-      </View>
-    </SafeAreaView>
+          source={image}
+          resizeMethod="contain"
+          // For handling the image not found error and display a placehoolder instead now
+          onError={() => {
+            setImage(require('../../assests/images/fallbackimage.png'));
+          }}
+          // For handling the loading now
+          onLoad={() => {
+            setLoading(false);
+          }}
+          style={{width: 100, height: 100, borderRadius: 15}}
+        />
+      )}
+    </View>
   );
 };
 export default ImageComponent;
